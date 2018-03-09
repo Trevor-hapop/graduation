@@ -1,5 +1,5 @@
 <template>
-	<el-button type="primary">Hello Bo</el-button>
+	<el-button type="primary">Hello Bro</el-button>
 </template>
 
 <script>
