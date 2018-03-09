@@ -1,0 +1,99 @@
+<template>
+	<div class="login-box">
+		<header>
+			<h3>Login</h3>
+		</header>
+		<div class="form">
+			<el-form ref="loginForm" :model="loginForm">
+				<el-form-item>
+					<el-input v-model="loginForm.name" placeholder="请输入用户名"></el-input>
+				</el-form-item>
+				<el-form-item>
+					<el-input v-model="loginForm.password" placeholder="请输入密码"></el-input>
+				</el-form-item>
+			</el-form>
+		</div>
+		<div class="btn">
+			<el-button @click="login()" icon="el-icon-search">登录</el-button>
+		</div>
+	</div>
+</template>
+<script>
+	export default{
+		data () {
+			return {
+				loginForm: {
+					name: '',
+					password: ''
+				}
+			}
+		},
+		methods: {
+			login () {
+				console.log(this.loginForm.name)
+				fetch('/login/submit', {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+    				'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(this.loginForm)
+				}).then(res => {
+					console.log(res)
+				}).catch(err => {
+					console.log('err')
+				})
+			}
+		}
+	}
+</script>
+
+<style lang="scss" scoped>
+	.login-box{
+		width: 300px;
+		height: 300px;
+		background-color: white;
+		border-radius: 10px;
+		box-shadow: -5px 5px 25px gray;
+		position: absolute;
+		top: 100px;
+		right: 50px;
+		header{
+			width: 100%;
+			height: 50px;
+			background-color: #ff2f01;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+			color: white;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.form{
+			.el-form{
+				width: 80%;
+				margin-top: 50px;
+			}
+			width: 300px;
+			height: 200px;
+			margin-top: 50px;
+			margin: 0 auto;
+			display: flex;
+			justify-content: center;
+			.el-input{
+				width: 100%;
+			}
+		}
+		.btn{
+			width: 80%;
+			margin: 0 auto;
+			border-radius: 10px;
+		}
+		.el-button{
+			background-color: #ff2f01;
+			color: white;
+			width: 100%;
+			margin: 0 auto;
+		}
+	}
+</style>

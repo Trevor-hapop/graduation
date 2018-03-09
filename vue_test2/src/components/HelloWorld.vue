@@ -9,12 +9,15 @@
         </nav-item>
       </navbar>
       <div class="admin">
-        <img src="../assets/image/admin.png">
+        <router-link to="/login">
+          <img src="../assets/image/admin.png">
+        </router-link>
       </div>
+      <el-button @click="test()">我们都是好孩子</el-button>
       <router-view></router-view>
     </div>
     <container class="container"></container>
-    <!-- <copyright></copyright> -->
+    <copyright></copyright>
   </div>
 </template>
 
@@ -43,7 +46,15 @@ export default {
   },
   methods: {
     test () {
-      console.log('haha')
+      fetch('/hapop', {
+        method: 'GET'
+      }).then((res) => {
+        console.log(res)
+        console.log('OK')
+      }).catch((err) => {
+        console.log('not')
+      })
+      console.log('s')
     }
   }
 }
@@ -84,7 +95,8 @@ export default {
       justify-content: flex-end;
       align-items: center;
       img{
-        height: 40%;
+        width: 30px;
+        height: 30px;
       }
     }
  }
