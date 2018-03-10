@@ -5,16 +5,16 @@
 		</header>
 		<div class="form">
 			<el-form ref="loginForm" :model="loginForm">
-				<el-form-item>
-					<el-input v-model="loginForm.name" placeholder="请输入用户名"></el-input>
+				<el-form-item prop="userName">
+					<el-input v-model="loginForm.userName" placeholder="请输入用户名" prefix-icon="el-icon-mobile-phone"></el-input>
 				</el-form-item>
-				<el-form-item>
-					<el-input v-model="loginForm.password" placeholder="请输入密码"></el-input>
+				<el-form-item prop="password">
+					<el-input v-model="loginForm.password" placeholder="请输入密码"  prefix-icon="el-icon-goods"></el-input>
 				</el-form-item>
 			</el-form>
 		</div>
 		<div class="btn">
-			<el-button @click="login()" icon="el-icon-search">登录</el-button>
+			<el-button @click="login()">登录</el-button>
 		</div>
 	</div>
 </template>
@@ -23,14 +23,21 @@
 		data () {
 			return {
 				loginForm: {
-					name: '',
+					userName: '',
 					password: ''
 				}
+				// rules: {
+				// 	userName: [
+				// 	{ required: true, message: '请输入用户名', trigger: 'blur'}
+				// 	],
+				// 	password: [
+				// 	{ required: true, message: '请输入密码', trigger: 'blur' }
+				// 	]
+				// }
 			}
 		},
 		methods: {
 			login () {
-				console.log(this.loginForm.name)
 				fetch('/login/submit', {
 					method: 'POST',
 					headers: {
@@ -75,7 +82,7 @@
 				margin-top: 50px;
 			}
 			width: 300px;
-			height: 200px;
+			height: 180px;
 			margin-top: 50px;
 			margin: 0 auto;
 			display: flex;

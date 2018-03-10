@@ -1,13 +1,9 @@
 const Koa = require('koa');
-
+const bodyParser = require('koa-bodyparser');
 // 注意require('koa-router')返回的是函数:
 const router = require('koa-router')();
-const bodyParser = require('body-parser')
 
 const app = new Koa();
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
-// log request URL:
 
 // add url-route:
 router.get('/hapop', async (ctx, next) => {
@@ -17,7 +13,7 @@ router.get('/hapop', async (ctx, next) => {
 
 router.post('/login/submit', async (ctx, next) => {
 	console.log('ctx')
-	console.log(ctx)
+	console.log(ctx.request.body)
     var
         name = ctx.request.body.name || '',
         password = ctx.request.body.password || ''
@@ -29,6 +25,7 @@ router.post('/login/submit', async (ctx, next) => {
     }
 })
 
+app.use(bodyParser());
 // add router middleware:
 app.use(router.routes());
 app.listen(8080);
