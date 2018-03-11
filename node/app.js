@@ -1,3 +1,4 @@
+const user = require('./database/table/user')
 const Koa = require('koa');
 
 const bodyParser = require('koa-bodyparser');

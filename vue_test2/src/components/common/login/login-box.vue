@@ -45,7 +45,8 @@
     				'Content-Type': 'application/json'
 					},
 					body: JSON.stringify(this.loginForm)
-				}).then(res => {
+				}).then((res) => {
+					res.json()
 					console.log(res)
 				}).catch(err => {
 					console.log('err')
