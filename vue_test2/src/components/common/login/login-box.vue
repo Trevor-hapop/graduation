@@ -9,9 +9,16 @@
 					<el-input v-model="loginForm.userName" placeholder="请输入用户名" prefix-icon="el-icon-mobile-phone"></el-input>
 				</el-form-item>
 				<el-form-item prop="password">
-					<el-input v-model="loginForm.password" placeholder="请输入密码"  prefix-icon="el-icon-goods"></el-input>
+					<el-input 
+						v-model="loginForm.password" 
+						placeholder="请输入密码"  
+						prefix-icon="el-icon-goods"
+						type="password"></el-input>
 				</el-form-item>
 			</el-form>
+		</div>
+		<div class="err" v-show="err">
+			<p>用户名或密码错误</p>
 		</div>
 		<div class="btn">
 			<el-button @click="login()">登录</el-button>
@@ -25,7 +32,8 @@
 				loginForm: {
 					userName: '',
 					password: ''
-				}
+				},
+				err: false,
 				// rules: {
 				// 	userName: [
 				// 	{ required: true, message: '请输入用户名', trigger: 'blur'}
@@ -38,19 +46,20 @@
 		},
 		methods: {
 			login () {
-				fetch('/login/submit', {
+				fetch('/api/login/submit', {
+					credentials: 'include',
 					method: 'POST',
 					headers: {
 						'Accept': 'application/json',
     				'Content-Type': 'application/json'
 					},
 					body: JSON.stringify(this.loginForm)
-				}).then((res) => {
-					res.json()
-					console.log(res)
-				}).catch(err => {
-					console.log('err')
+				}).then(res => res.json()).then(data => {
+					data ? this.$router.push({path: '/'}) : this.showErr()
 				})
+			},
+			showErr () {
+				this.err = true
 			}
 		}
 	}
@@ -83,7 +92,7 @@
 				margin-top: 50px;
 			}
 			width: 300px;
-			height: 180px;
+			height: 160px;
 			margin-top: 50px;
 			margin: 0 auto;
 			display: flex;
@@ -92,8 +101,17 @@
 				width: 100%;
 			}
 		}
+		.err{
+			width: 100%;
+			height: 15px;
+			color: #ff2f01;
+			text-align: center;
+			font-size: 12px;
+		}
 		.btn{
 			width: 80%;
+			position: relative;
+			top: 10px;
 			margin: 0 auto;
 			border-radius: 10px;
 		}

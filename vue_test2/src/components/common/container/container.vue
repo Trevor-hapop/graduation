@@ -4,7 +4,7 @@
 			<el-input
 				type="text"
 		    placeholder="Input Your Pet"
-		    suffix-icon="el-icon-date"
+		    suffix-icon="el-icon-search"
 		    align="center">
 		  </el-input>
 		</div>

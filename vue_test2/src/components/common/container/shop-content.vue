@@ -6,10 +6,10 @@
 			</div>
 			<div class="main">
 				<ul>
-					<li v-for="item in 8">
+					<li v-for="item in dogs">
 						<div class="pet">
-							<img src="../../../assets/image/taidi.png">
-							<p>泰迪</p>
+							<img :src="item.picPath">
+							<p>{{item.name}}</p>
 						</div>
 					</li>
 				</ul>
@@ -22,10 +22,10 @@
 			</div>
 			<div class="main">
 				<ul>
-					<li v-for="item in 8">
+					<li v-for="item in cats">
 						<div class="pet">
-							<img src="../../../assets/image/taidi.png">
-							<p>泰迪</p>
+							<img :src="item.picPath">
+							<p>{{item.name}}</p>
 						</div>
 					</li>
 				</ul>
@@ -38,10 +38,10 @@
 			</div>
 			<div class="main">
 				<ul>
-					<li v-for="item in 8">
+					<li v-for="item in others">
 						<div class="pet">
-							<img src="../../../assets/image/taidi.png">
-							<p>泰迪</p>
+							<img :src="item.picPath">
+							<p>{{item.name}}</p>
 						</div>
 					</li>
 				</ul>
@@ -51,7 +51,39 @@
 </template>
 
 <script>
-	
+	export default{
+		name: 'shop-content',
+		data () {
+			return {
+				dogs: [],
+				cats: [],
+				others: []
+			}
+		},
+		created () {
+			fetch('/api/show/dogs', {
+				credentials: 'include',
+    		method: 'GET'
+			}).then(res => res.json()).then(data => {
+				this.dogs = data
+				console.log(this.dogs)
+			}),
+			fetch('/api/show/cats', {
+				credentials: 'include',
+    		method: 'GET'
+			}).then(res => res.json()).then(data => {
+				this.cats = data
+			}),
+			fetch('/api/show/others', {
+				credentials: 'include',
+    		method: 'GET'
+			}).then(res => res.json()).then(data => {
+				this.others = data
+			})
+		},
+		methods: {
+		}
+	}
 </script>
 
 <style lang="scss" scoped>

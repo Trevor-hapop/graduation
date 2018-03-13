@@ -25,7 +25,7 @@
 		width: 100%;
 		height: 100px;
 		background-color: #ff2f01;
-		margin-top: 2200px;
+		margin-top: 1900px;
 		display: flex;
 		justify-content: center;
 		.content{

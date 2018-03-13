@@ -19,10 +19,12 @@ router.post('/login/submit', async (ctx, next) => {
         password = ctx.request.body.password || ''
     console.log(`signin with name: ${name}, password: ${password}`)
     if (name === 'Hapop' && password === '496507') {
-        ctx.response.body = true
+        ctx.body = { name: '666', id: '999'}
     } else {
-        ctx.response.body = false
+        ctx.body = { name: '111', id: '999'}
     }
+    console.log('ctx body')
+    console.log(ctx.response)
 })
 
 app.use(bodyParser());

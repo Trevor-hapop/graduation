@@ -9,11 +9,17 @@
         </nav-item>
       </navbar>
       <div class="admin">
-        <router-link to="/login">
+        <router-link to="/login" v-if="!isLogin">
           <img src="../assets/image/admin.png">
         </router-link>
+        <el-dropdown v-else @command="logout">
+          <img src="../assets/image/laugh.jpg">
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="a">个人资料</el-dropdown-item>
+            <el-dropdown-item command="b" divided @click="logout()">退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </div>
-      <el-button @click="test()">我们都是好孩子</el-button>
       <router-view></router-view>
     </div>
     <container class="container"></container>
@@ -34,6 +40,14 @@ export default {
     container,
     copyright
   },
+  created () {
+    fetch('/api/isLogin', {
+      credentials: 'include',
+      method: 'GET'
+    }).then(res => res.json()).then(data => {
+      this.isLogin = data
+    })
+  },
   data () {
     return {
       items: [
@@ -41,20 +55,19 @@ export default {
         { path: '/PetFosterage', name: '宠物寄养', img: '../assets/image/PetFosterage.png' },
         { path: '/PetHospital', name: '宠物医院', img: '../assets/image/PetHospital.png' },
         { path: '/PetOther', name: '周边商城', img: '../assets/image/PetOther.png' }
-      ]
+      ],
+      isLogin: false
     }
   },
   methods: {
-    test () {
-      fetch('/hapop', {
-        method: 'GET'
-      }).then((res) => {
-        console.log(res)
-        console.log('OK')
-      }).catch((err) => {
-        console.log('not')
+    logout () {
+      console.log('yyy')
+      fetch('/api/logout', {
+        credentials: 'include',
+        methods: 'GET'
+      }).then(res => res.json()).then(data => {
+        this.isLogin = data
       })
-      console.log('s')
     }
   }
 }
@@ -95,8 +108,9 @@ export default {
       justify-content: flex-end;
       align-items: center;
       img{
-        width: 30px;
-        height: 30px;
+        width: 40px;
+        height: 40px;
+        border-radius: 100px;
       }
     }
  }
